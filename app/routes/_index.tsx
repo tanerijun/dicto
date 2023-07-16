@@ -1,9 +1,10 @@
 import {
 	json,
-	type LoaderFunction,
+	type LoaderArgs,
 	type V2_MetaFunction,
 } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
+import { getWordDefinitions } from "~/lib/api";
 
 export const meta: V2_MetaFunction = () => {
 	return [
@@ -15,17 +16,25 @@ export const meta: V2_MetaFunction = () => {
 	];
 };
 
-export const loader: LoaderFunction = ({ request }) => {
+export const loader = async ({ request }: LoaderArgs) => {
 	const url = new URL(request.url);
 	const query = url.searchParams.get("query");
 
+	if (!query) {
+		return json({
+			definitions: null,
+		});
+	}
+
+	const definitions = await getWordDefinitions(query);
+
 	return json({
-		query,
+		definitions,
 	});
 };
 
 export default function Index() {
-	const data = useLoaderData<typeof loader>();
+	const { definitions } = useLoaderData<typeof loader>();
 
 	return (
 		<main className="mx-auto max-w-3xl px-4">
@@ -40,7 +49,7 @@ export default function Index() {
 			</form>
 
 			<output htmlFor="search-bar" form="search-form">
-				{data.query}
+				{definitions?.word ?? "Search for a word!"}
 			</output>
 		</main>
 	);
