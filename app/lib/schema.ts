@@ -39,4 +39,4 @@ export const WordDefinitionsSchema = z.object({
 		url: z.string(),
 	}),
 });
-export type WordResults = z.infer<typeof WordDefinitionsSchema>;
+export type WordDefinitions = z.infer<typeof WordDefinitionsSchema>;

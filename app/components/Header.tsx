@@ -1,5 +1,5 @@
 const Logo = () => {
-	return <div>Word Bliss</div>;
+	return <div className="bold text-3xl">Word Bliss</div>;
 };
 
 const FontStyleSelector = () => {
@@ -18,7 +18,7 @@ const ThemeToggler = () => {
 
 export const Header = () => {
 	return (
-		<header className="mx-auto flex max-w-3xl items-center justify-between px-4">
+		<header className="mx-auto flex h-20 max-w-3xl items-center justify-between px-4">
 			<Logo />
 			<div className="flex gap-4">
 				<FontStyleSelector />
