@@ -22,6 +22,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 
 	if (!query) {
 		return json({
+			query,
 			definitions: null,
 		});
 	}
@@ -29,12 +30,13 @@ export const loader = async ({ request }: LoaderArgs) => {
 	const definitions = await getWordDefinitions(query);
 
 	return json({
+		query,
 		definitions,
 	});
 };
 
 export default function Index() {
-	const { definitions } = useLoaderData<typeof loader>();
+	const { query, definitions } = useLoaderData<typeof loader>();
 
 	return (
 		<main className="mx-auto max-w-3xl px-4">
@@ -49,7 +51,11 @@ export default function Index() {
 			</form>
 
 			<output htmlFor="search-bar" form="search-form">
-				{definitions?.word ?? "Search for a word!"}
+				{!query
+					? "Search for a word!"
+					: definitions
+					? definitions.word
+					: "No definitions found"}
 			</output>
 		</main>
 	);
