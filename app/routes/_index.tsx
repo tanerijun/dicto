@@ -12,8 +12,8 @@ export const meta: V2_MetaFunction = () => {
 
 export default function Index() {
 	return (
-		<div>
+		<main className="mx-auto max-w-3xl px-4">
 			<h1 className=" bg-red-400">Hello world</h1>
-		</div>
+		</main>
 	);
 }

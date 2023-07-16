@@ -8,8 +8,18 @@ import {
 	ScrollRestoration,
 } from "@remix-run/react";
 import styles from "~/globals.css";
+import { Header } from "~/components/Header";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
+	return (
+		<>
+			<Header />
+			{children}
+		</>
+	);
+};
 
 export default function App() {
 	return (
@@ -21,7 +31,9 @@ export default function App() {
 				<Links />
 			</head>
 			<body>
-				<Outlet />
+				<RootLayout>
+					<Outlet />
+				</RootLayout>
 				<ScrollRestoration />
 				<Scripts />
 				<LiveReload />
