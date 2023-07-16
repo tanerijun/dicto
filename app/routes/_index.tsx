@@ -1,4 +1,9 @@
-import type { V2_MetaFunction } from "@remix-run/cloudflare";
+import {
+	json,
+	type LoaderFunction,
+	type V2_MetaFunction,
+} from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: V2_MetaFunction = () => {
 	return [
@@ -10,7 +15,18 @@ export const meta: V2_MetaFunction = () => {
 	];
 };
 
+export const loader: LoaderFunction = ({ request }) => {
+	const url = new URL(request.url);
+	const query = url.searchParams.get("query");
+
+	return json({
+		query,
+	});
+};
+
 export default function Index() {
+	const data = useLoaderData<typeof loader>();
+
 	return (
 		<main className="mx-auto max-w-3xl px-4">
 			<form id="search-form">
@@ -24,7 +40,7 @@ export default function Index() {
 			</form>
 
 			<output htmlFor="search-bar" form="search-form">
-				TODO
+				{data.query}
 			</output>
 		</main>
 	);
