@@ -1,15 +1,39 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { type WordDefinitions } from "~/lib/schema";
 import { capitalize } from "~/lib/utils";
 
 const AudioPlayer = ({ src }: { src: string }) => {
-	const audio = new Audio(src);
+	const [isPlaying, setIsPlaying] = useState(false);
+	const audioRef = useRef<HTMLAudioElement | null>(null);
+
+	useEffect(() => {
+		const audio = new Audio(src);
+		audioRef.current = audio;
+
+		audioRef.current.addEventListener("playing", () => {
+			setIsPlaying(true);
+		});
+		audioRef.current.addEventListener("ended", () => {
+			setIsPlaying(false);
+		});
+
+		return () => {
+			audioRef.current?.removeEventListener("playing", () => {
+				setIsPlaying(true);
+			});
+			audioRef.current?.removeEventListener("ended", () => {
+				setIsPlaying(false);
+			});
+		};
+	}, [src]);
 
 	const handleClick = () => {
-		audio.play();
+		audioRef.current?.play();
 	};
 
-	return <button onClick={handleClick}>Play</button>;
+	return (
+		<button onClick={handleClick}>{isPlaying ? "Playing" : "Play"}</button>
+	);
 };
 
 const Header = ({ definitions }: { definitions: WordDefinitions }) => {
