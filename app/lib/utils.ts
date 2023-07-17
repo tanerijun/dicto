@@ -2,22 +2,18 @@ import {
 	type WordDefinitions,
 	type APIWordDefinitions,
 	type WordPhonetic,
+	type WordMeanings,
 } from "./schema";
 
-export function cleanWordDefinitions(dirtyWordDefinitions: APIWordDefinitions) {
-	const cleanData: WordDefinitions = {
-		word: "",
-		phonetics: [],
-		meanings: {},
-	};
+export function cleanWordDefinitions(
+	dirtyWordDefinitions: APIWordDefinitions
+): WordDefinitions {
+	const cleanPhonetics: WordPhonetic[] = [];
+	const cleanMeanings: WordMeanings = {};
 
-	cleanData.word = dirtyWordDefinitions[0].word;
-
-	// const phoneticSet = new Set<string>(); // Need to consider the audio link too
-	const phoneticArray: WordPhonetic[] = [];
 	dirtyWordDefinitions.forEach((definition) => {
 		definition.phonetics?.forEach((phonetic) => {
-			const phoneticInArrayIndex = phoneticArray.findIndex(
+			const phoneticInArrayIndex = cleanPhonetics.findIndex(
 				(p) => p.text === phonetic.text
 			);
 			if (phonetic.text && phoneticInArrayIndex === -1) {
@@ -28,28 +24,30 @@ export function cleanWordDefinitions(dirtyWordDefinitions: APIWordDefinitions) {
 				};
 
 				// cleanData.phonetics.push(data);
-				phoneticArray.push(data);
+				cleanPhonetics.push(data);
 				// phoneticSet.add(phonetic.text);
-			} else if (!phoneticArray[phoneticInArrayIndex].src && phonetic.audio) {
-				phoneticArray[phoneticInArrayIndex].src = phonetic.audio;
+			} else if (!cleanPhonetics[phoneticInArrayIndex].src && phonetic.audio) {
+				cleanPhonetics[phoneticInArrayIndex].src = phonetic.audio;
 			}
 		});
 
 		definition.meanings.forEach((meaning) => {
 			const key = meaning.partOfSpeech;
-			if (!Array.isArray(cleanData.meanings[key])) {
-				cleanData.meanings[key] = [];
+			if (!Array.isArray(cleanMeanings[key])) {
+				cleanMeanings[key] = [];
 			}
 
 			meaning.definitions.forEach((definition) => {
-				cleanData.meanings[meaning.partOfSpeech].push(definition);
+				cleanMeanings[meaning.partOfSpeech].push(definition);
 			});
 		});
 	});
 
-	cleanData.phonetics = phoneticArray;
-
-	return cleanData;
+	return {
+		word: dirtyWordDefinitions[0].word,
+		phonetics: cleanPhonetics,
+		meanings: cleanMeanings,
+	};
 }
 
 export function capitalize(word: string) {
