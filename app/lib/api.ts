@@ -3,6 +3,7 @@ import { WordDefinitionsSchema } from "./schema";
 
 const BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en";
 
+// TODO: If I decide to implement nested route, consider throwing an error instead of null
 export async function getWordDefinitions(word: string) {
 	try {
 		const response = await fetch(`${BASE_URL}/${word}`);

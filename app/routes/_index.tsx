@@ -17,6 +17,8 @@ export const meta: V2_MetaFunction = () => {
 	];
 };
 
+// TODO: consider not using query but use nested route
+// Potential for route like this: https://domain.com/hello
 export const loader = async ({ request }: LoaderArgs) => {
 	const url = new URL(request.url);
 	const query = url.searchParams.get("query");
