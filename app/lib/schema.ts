@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const PhoneticsSchema = z
+const APIPhoneticsSchema = z
 	.array(
 		z.object({
 			audio: z.string().optional(),
@@ -9,9 +9,8 @@ export const PhoneticsSchema = z
 		})
 	)
 	.optional();
-export type Phonetics = z.infer<typeof PhoneticsSchema>;
 
-export const MeaningsSchema = z.array(
+const APIMeaningsSchema = z.array(
 	z.object({
 		partOfSpeech: z.string(),
 		definitions: z.array(
@@ -26,17 +25,42 @@ export const MeaningsSchema = z.array(
 		antonyms: z.array(z.string()),
 	})
 );
-export type Meanings = z.infer<typeof MeaningsSchema>;
 
-export const WordDefinitionsSchema = z.object({
+export const APIDefinitionsSchema = z.object({
 	word: z.string(),
 	phonetic: z.string().optional(),
-	phonetics: PhoneticsSchema,
-	meanings: MeaningsSchema,
+	phonetics: APIPhoneticsSchema,
+	meanings: APIMeaningsSchema,
 	sourceUrls: z.array(z.string()),
 	license: z.object({
 		name: z.string(),
 		url: z.string(),
 	}),
 });
-export type WordDefinitions = z.infer<typeof WordDefinitionsSchema>;
+export type APIDefinitions = z.infer<typeof APIDefinitionsSchema>;
+
+const PhoneticsSchema = z.array(
+	z.object({
+		text: z.string(),
+		src: z.string(),
+	})
+);
+export type Phonetics = z.infer<typeof PhoneticsSchema>;
+
+const MeaningsSchema = z.record(
+	z.string(),
+	z.object({
+		definition: z.string(),
+		example: z.string().optional(),
+		synonyms: z.array(z.string()).optional(),
+		antonyms: z.array(z.string()).optional(),
+	})
+);
+export type Meanings = z.infer<typeof MeaningsSchema>;
+
+export const DefinitionsSchema = z.object({
+	word: z.string(),
+	phonetics: PhoneticsSchema,
+	meanings: MeaningsSchema,
+});
+export type Definitions = z.infer<typeof DefinitionsSchema>;
