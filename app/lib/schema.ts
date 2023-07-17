@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const APIPhoneticsSchema = z
+const APIWordPhoneticsSchema = z
 	.array(
 		z.object({
 			audio: z.string().optional(),
@@ -10,7 +10,7 @@ const APIPhoneticsSchema = z
 	)
 	.optional();
 
-const APIMeaningsSchema = z.array(
+const APIWordMeaningsSchema = z.array(
 	z.object({
 		partOfSpeech: z.string(),
 		definitions: z.array(
@@ -26,41 +26,43 @@ const APIMeaningsSchema = z.array(
 	})
 );
 
-export const APIDefinitionsSchema = z.object({
-	word: z.string(),
-	phonetic: z.string().optional(),
-	phonetics: APIPhoneticsSchema,
-	meanings: APIMeaningsSchema,
-	sourceUrls: z.array(z.string()),
-	license: z.object({
-		name: z.string(),
-		url: z.string(),
-	}),
-});
-export type APIDefinitions = z.infer<typeof APIDefinitionsSchema>;
-
-const PhoneticsSchema = z.array(
+export const APIWordDefinitionsSchema = z.array(
 	z.object({
-		text: z.string(),
-		src: z.string(),
+		word: z.string(),
+		phonetic: z.string().optional(),
+		phonetics: APIWordPhoneticsSchema,
+		meanings: APIWordMeaningsSchema,
+		sourceUrls: z.array(z.string()),
+		license: z.object({
+			name: z.string(),
+			url: z.string(),
+		}),
 	})
 );
-export type Phonetics = z.infer<typeof PhoneticsSchema>;
+export type APIWordDefinitions = z.infer<typeof APIWordDefinitionsSchema>;
 
-const MeaningsSchema = z.record(
+const WordPhoneticSchema = z.object({
+	text: z.string(),
+	src: z.string().optional(),
+});
+export type WordPhonetic = z.infer<typeof WordPhoneticSchema>;
+
+const WordMeaningsSchema = z.record(
 	z.string(),
-	z.object({
-		definition: z.string(),
-		example: z.string().optional(),
-		synonyms: z.array(z.string()).optional(),
-		antonyms: z.array(z.string()).optional(),
-	})
+	z.array(
+		z.object({
+			definition: z.string(),
+			example: z.string().optional(),
+			synonyms: z.array(z.string()).optional(),
+			antonyms: z.array(z.string()).optional(),
+		})
+	)
 );
-export type Meanings = z.infer<typeof MeaningsSchema>;
+export type WordMeanings = z.infer<typeof WordMeaningsSchema>;
 
-export const DefinitionsSchema = z.object({
+export const WordDefinitionsSchema = z.object({
 	word: z.string(),
-	phonetics: PhoneticsSchema,
-	meanings: MeaningsSchema,
+	phonetics: z.array(WordPhoneticSchema),
+	meanings: WordMeaningsSchema,
 });
-export type Definitions = z.infer<typeof DefinitionsSchema>;
+export type WordDefinitions = z.infer<typeof WordDefinitionsSchema>;

@@ -1,16 +1,11 @@
-import { z } from "zod";
-import { APIDefinitionsSchema } from "./schema";
-
 const BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en";
 
 // TODO: If I decide to implement nested route, consider throwing an error instead of null
-export async function getWordDefinitions(word: string) {
-	try {
-		const response = await fetch(`${BASE_URL}/${word}`);
-		const json = await response.json();
-		const data = z.array(APIDefinitionsSchema).parse(json)[0];
-		return data;
-	} catch {
+export async function getWordDefinitionsFromAPI(word: string) {
+	const response = await fetch(`${BASE_URL}/${word}`);
+	if (!response.ok) {
 		return null;
 	}
+
+	return await response.json();
 }
