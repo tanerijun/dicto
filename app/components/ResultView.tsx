@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { type WordDefinitions } from "~/lib/schema";
+import { Meanings, type WordDefinitions } from "~/lib/schema";
 import { capitalize } from "~/lib/utils";
 
 const AudioPlayer = ({ src }: { src: string }) => {
@@ -80,6 +80,31 @@ const Header = ({ definitions }: { definitions: WordDefinitions }) => {
 	);
 };
 
+// TODO: on hold, need to clean data
+const Meanings = ({ meanings }: { meanings: Meanings }) => {
+	return (
+		// TODO: can this be more semantic?
+		<div>
+			{meanings.map((meaning) => (
+				<div key={meaning.partOfSpeech}>
+					<p>Part of Speech: {meaning.partOfSpeech}</p>
+					<p>Definitions:</p>
+					<ul>
+						{meaning.definitions.map((definition) => (
+							<li key={definition.definition}>
+								<p>{definition.definition}</p>
+								<p>Synonyms: {definition.synonyms}</p>
+								<p>Antonyms: {definition.antonyms}</p>
+								<p>Example: {definition.example}</p>
+							</li>
+						))}
+					</ul>
+				</div>
+			))}
+		</div>
+	);
+};
+
 export const ResultView = ({
 	definitions,
 }: {
@@ -88,6 +113,7 @@ export const ResultView = ({
 	return (
 		<article>
 			<Header definitions={definitions} />
+			<Meanings meanings={definitions.meanings} />
 		</article>
 	);
 };
