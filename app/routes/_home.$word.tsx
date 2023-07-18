@@ -5,6 +5,7 @@ import {
 	useParams,
 	useRouteError,
 } from "@remix-run/react";
+import { ResultView } from "~/components/ResultView";
 import { getWordDefinitionsFromAPI } from "~/lib/api";
 import { APIWordDefinitionsSchema } from "~/lib/schema";
 import { cleanWordDefinitions } from "~/lib/utils";
@@ -36,7 +37,7 @@ export default function HomeWordPage() {
 
 	console.log(data);
 
-	return <div>{data.word}</div>;
+	return <ResultView definitions={data} />;
 }
 
 // TODO: Styling
@@ -50,7 +51,7 @@ export function ErrorBoundary() {
 
 	return (
 		<div>
-			There was an error loading definition for the word: "${params.word}".
+			There was an error loading definition for the word: "{params.word}".
 			Sorry.
 		</div>
 	);

@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { Meanings, type WordDefinitions } from "~/lib/schema";
+import {
+	type WordMeanings,
+	type WordPhonetic,
+	type WordDefinitions,
+} from "~/lib/schema";
 import { capitalize } from "~/lib/utils";
 
 const AudioPlayer = ({ src }: { src: string }) => {
@@ -36,20 +40,14 @@ const AudioPlayer = ({ src }: { src: string }) => {
 	);
 };
 
-const Header = ({ definitions }: { definitions: WordDefinitions }) => {
-	const phonetics = definitions.phonetics
-		? definitions.phonetics
-				.map((phonetic) => ({
-					text: phonetic.text ? phonetic.text : undefined,
-					audioUrl: phonetic.audio ? phonetic.audio : undefined,
-				}))
-				.filter((phonetic) => phonetic.text)
-		: definitions.phonetic
-		? [{ text: definitions.phonetic, audioUrl: undefined }]
-		: [];
-
+const Header = ({
+	word,
+	phonetics,
+}: {
+	word: string;
+	phonetics: WordPhonetic[];
+}) => {
 	const [phoneticIndex, setPhoneticIndex] = useState(0);
-
 	const currentPhonetic = phonetics[phoneticIndex];
 
 	const handleClick = () => {
@@ -61,7 +59,7 @@ const Header = ({ definitions }: { definitions: WordDefinitions }) => {
 	return (
 		<header className="flex justify-between">
 			<div>
-				<h1 className="text-5xl font-bold">{capitalize(definitions.word)}</h1>
+				<h1 className="text-5xl font-bold">{capitalize(word)}</h1>
 				<div className="flex">
 					{/* TODO: animate transition among different phonetics */}
 					<p className="text-violet-500">{currentPhonetic.text}</p>
@@ -73,9 +71,7 @@ const Header = ({ definitions }: { definitions: WordDefinitions }) => {
 				</div>
 			</div>
 			{/* TODO: animate mound and unmount */}
-			{currentPhonetic.audioUrl && (
-				<AudioPlayer src={currentPhonetic.audioUrl} />
-			)}
+			{currentPhonetic.src && <AudioPlayer src={currentPhonetic.src} />}
 		</header>
 	);
 };
@@ -112,8 +108,8 @@ export const ResultView = ({
 }) => {
 	return (
 		<article>
-			<Header definitions={definitions} />
-			<Meanings meanings={definitions.meanings} />
+			<Header word={definitions.word} phonetics={definitions.phonetics} />
+			{/* <Meanings meanings={definitions.meanings} /> */}
 		</article>
 	);
 };
