@@ -3,7 +3,7 @@ import { SunIcon } from "./icons/SunIcon";
 import { MoonIcon } from "./icons/MoonIcon";
 
 const Logo = () => {
-	return <div className="bold text-3xl">Word Bliss</div>;
+	return <div className="bold text-3xl">Dicto</div>;
 };
 
 const FontStyleSelector = () => {

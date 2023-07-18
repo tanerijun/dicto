@@ -10,10 +10,10 @@ import { SearchIcon } from "~/components/icons/SearchIcon";
 
 export const meta: V2_MetaFunction = () => {
 	return [
-		{ title: "Word Bliss" },
+		{ title: "Dicto" },
 		{
 			name: "description",
-			content: "Elevate Your Vocabulary, Elevate Your Bliss",
+			content: "Dependable little dictionary",
 		},
 	];
 };

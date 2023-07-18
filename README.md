@@ -1,6 +1,6 @@
-# Word Bliss
+# Dicto
 
-Elevate Your Vocabulary, Elevate Your Bliss.
+Dependable little dictionary.
 
 ## Tech Stack
 
