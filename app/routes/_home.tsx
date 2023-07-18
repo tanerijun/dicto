@@ -51,7 +51,7 @@ export default function HomeLayout() {
 			<main className="mx-auto my-8 flex w-full max-w-3xl flex-1 flex-col gap-12 px-4">
 				<Form
 					id="search-form"
-					className="flex rounded-lg bg-zinc-200"
+					className="relative flex rounded-lg bg-zinc-200"
 					method="post"
 				>
 					<input
@@ -61,10 +61,13 @@ export default function HomeLayout() {
 						id="search-bar"
 						defaultValue={params.word}
 						placeholder="Try typing a word"
-						className="flex-1 bg-transparent p-4 focus:outline-none"
+						className="flex-1 bg-transparent py-5 pl-5 pr-14 focus:outline-violet-500"
 						onChange={handleInputChange}
 					/>
-					<button type="submit" className="px-4">
+					<button
+						type="submit"
+						className="absolute right-0 top-1/2 -translate-y-1/2 px-4"
+					>
 						<SearchIcon className="h-6 w-6 transition-colors hover:text-violet-500" />
 					</button>
 				</Form>
