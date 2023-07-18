@@ -1,8 +1,21 @@
-import { Form, Outlet, useNavigate, useParams } from "@remix-run/react";
+import {
+	Form,
+	Outlet,
+	type V2_MetaFunction,
+	useNavigate,
+	useParams,
+} from "@remix-run/react";
 import { Header } from "~/components/Header";
 
-// TODO: create action, and redirect user to /${user_input} (for progressive enchancement)
-// TODO: make input controlled, and navigate to /${word} onChange (don't forget to debounce)
+export const meta: V2_MetaFunction = () => {
+	return [
+		{ title: "Word Bliss" },
+		{
+			name: "description",
+			content: "Elevate Your Vocabulary, Elevate Your Bliss",
+		},
+	];
+};
 
 export default function HomeLayout() {
 	const params = useParams();
