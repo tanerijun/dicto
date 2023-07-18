@@ -32,7 +32,7 @@ export default function HomeLayout() {
 			<main className="mx-auto my-8 flex w-full max-w-3xl flex-1 flex-col gap-12 px-4">
 				<Form
 					id="search-form"
-					className="flex rounded-lg bg-gray-200"
+					className="flex rounded-lg bg-zinc-200"
 					method="post"
 				>
 					<input
@@ -45,7 +45,7 @@ export default function HomeLayout() {
 						onChange={handleInputChange}
 					/>
 					<button type="submit" className="px-4">
-						<SearchIcon />
+						<SearchIcon className="h-6 w-6 transition-colors hover:text-violet-500" />
 					</button>
 				</Form>
 

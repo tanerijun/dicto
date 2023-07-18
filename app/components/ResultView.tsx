@@ -8,6 +8,7 @@ import {
 import { capitalize } from "~/lib/utils";
 import { VoiceIcon } from "./icons/VoiceIcon";
 import { PlayIcon } from "./icons/PlayIcon";
+import { RotateIcon } from "./icons/RotateIcon";
 
 const AudioPlayer = ({ src }: { src: string }) => {
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -41,7 +42,7 @@ const AudioPlayer = ({ src }: { src: string }) => {
 	return (
 		<button
 			onClick={handleClick}
-			className="flex h-16 w-16 items-center justify-center rounded-full bg-violet-500 text-white"
+			className="flex h-16 w-16 items-center justify-center rounded-full bg-violet-500 text-white hover:bg-violet-400"
 		>
 			{isPlaying ? (
 				<VoiceIcon className="h-6 w-6" />
@@ -70,16 +71,16 @@ const Header = ({
 
 	return (
 		<header className="flex justify-between">
-			<div>
+			<div className="flex flex-col gap-2">
 				<h1 className="text-5xl font-bold">{capitalize(word)}</h1>
-				<div className="flex">
+				<div className="flex justify-between">
 					{/* TODO: animate transition among different phonetics */}
 					{currentPhonetic && (
 						<p className="text-violet-500">{currentPhonetic.text}</p>
 					)}
 					{phonetics.length > 1 && (
-						<button className="border border-red-500 p-1" onClick={handleClick}>
-							{phoneticIndex}
+						<button className="group" onClick={handleClick}>
+							<RotateIcon className="h-3 w-3 text-violet-500 group-hover:text-violet-400" />
 						</button>
 					)}
 				</div>
