@@ -6,6 +6,8 @@ import {
 	type WordDefinitions,
 } from "~/lib/schema";
 import { capitalize } from "~/lib/utils";
+import { VoiceIcon } from "./icons/VoiceIcon";
+import { PlayIcon } from "./icons/PlayIcon";
 
 const AudioPlayer = ({ src }: { src: string }) => {
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -37,7 +39,16 @@ const AudioPlayer = ({ src }: { src: string }) => {
 	};
 
 	return (
-		<button onClick={handleClick}>{isPlaying ? "Playing" : "Play"}</button>
+		<button
+			onClick={handleClick}
+			className="flex h-16 w-16 items-center justify-center rounded-full bg-violet-500 text-white"
+		>
+			{isPlaying ? (
+				<VoiceIcon className="h-6 w-6" />
+			) : (
+				<PlayIcon className="h-8 w-8" />
+			)}
+		</button>
 	);
 };
 
