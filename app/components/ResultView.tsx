@@ -79,36 +79,47 @@ const Header = ({
 const Meanings = ({ meanings }: { meanings: WordMeanings }) => {
 	return (
 		// TODO: can this be more semantic?
-		<div className="flex flex-col gap-8">
+		<div className="flex flex-col gap-12">
 			{Object.keys(meanings).map((key) => (
-				<div key={key}>
-					<h3 className="after:content-[' '] flex items-center gap-6 text-xl after:block after:h-[1px] after:w-full after:bg-zinc-700">
+				<div key={key} className="flex flex-col gap-8">
+					<h3 className="after:content-[' '] flex items-center gap-6 text-xl font-bold after:block after:h-[1px] after:w-full after:bg-zinc-700">
 						{key}
 					</h3>
 
-					<p className="text-zinc-500">Meaning</p>
-
-					<ul className="flex flex-col gap-8">
+					<ul className="flex flex-col gap-6">
 						{meanings[key].map((definition) => (
-							<li key={definition.definition} className="flex flex-col gap-2">
-								<p>{definition.definition}</p>
-								{definition.example && <p>Example: {definition.example}</p>}
-								{definition.synonyms && definition.synonyms.length > 0 && (
-									<p className="flex gap-4">
-										<span>Synonyms:</span>{" "}
-										{definition.synonyms.map((synonym) => (
-											<span key={synonym}>{synonym}</span>
-										))}
-									</p>
-								)}
-								{definition.antonyms && definition.antonyms.length > 0 && (
-									<p className="flex gap-4">
-										<span>Antonyms:</span>{" "}
-										{definition.antonyms.map((antonym) => (
-											<span key={antonym}>{antonym}</span>
-										))}
-									</p>
-								)}
+							<li
+								key={definition.definition}
+								className="relative pl-8 before:absolute before:left-0 before:top-2 before:h-2 before:w-2 before:rounded-full before:bg-violet-500 before:content-['']"
+							>
+								<div className="flex flex-col gap-4">
+									<p>{definition.definition}</p>
+									{definition.example && (
+										<p className="ml-8 text-sm italic text-zinc-500">
+											"{definition.example}"
+										</p>
+									)}
+									{definition.synonyms && definition.synonyms.length > 0 && (
+										<small className="flex gap-4">
+											<span className="text-zinc-500">Synonyms:</span>{" "}
+											{definition.synonyms.map((synonym) => (
+												<span className="text-violet-500" key={synonym}>
+													{synonym}
+												</span>
+											))}
+										</small>
+									)}
+									{definition.antonyms && definition.antonyms.length > 0 && (
+										<small className="flex gap-4">
+											<span className="text-zinc-500">Antonyms:</span>{" "}
+											{definition.antonyms.map((antonym) => (
+												<span className="text-violet-500" key={antonym}>
+													{antonym}
+												</span>
+											))}
+										</small>
+									)}
+								</div>
 							</li>
 						))}
 					</ul>
