@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { Link } from "@remix-run/react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import {
 	type WordMeanings,
 	type WordPhonetic,
@@ -76,12 +77,29 @@ const Header = ({
 	);
 };
 
+const WordListRow = ({ list }: { list: string[] }) => {
+	return (
+		<>
+			{list.map((item) => (
+				<Fragment key={item}>
+					{item.split(" ").length > 1 ? (
+						<span>{item}</span>
+					) : (
+						<Link className="cursor-pointer hover:underline" to={`/${item}`}>
+							{item}
+						</Link>
+					)}
+				</Fragment>
+			))}
+		</>
+	);
+};
+
 const Meanings = ({ meanings }: { meanings: WordMeanings }) => {
 	return (
-		// TODO: can this be more semantic?
 		<div className="flex flex-col gap-12">
 			{Object.keys(meanings).map((key) => (
-				<div key={key} className="flex flex-col gap-8">
+				<section key={key} className="flex flex-col gap-8">
 					<h3 className="after:content-[' '] flex items-center gap-6 text-xl font-bold after:block after:h-[1px] after:w-full after:bg-zinc-700">
 						{key}
 					</h3>
@@ -100,30 +118,26 @@ const Meanings = ({ meanings }: { meanings: WordMeanings }) => {
 										</p>
 									)}
 									{definition.synonyms && definition.synonyms.length > 0 && (
-										<small className="flex gap-4">
+										<div className="flex gap-4 text-xs">
 											<span className="text-zinc-500">Synonyms:</span>{" "}
-											{definition.synonyms.map((synonym) => (
-												<span className="text-violet-500" key={synonym}>
-													{synonym}
-												</span>
-											))}
-										</small>
+											<div className="flex gap-4 text-violet-500">
+												<WordListRow list={definition.synonyms} />
+											</div>
+										</div>
 									)}
 									{definition.antonyms && definition.antonyms.length > 0 && (
-										<small className="flex gap-4">
+										<div className="flex gap-4 text-xs">
 											<span className="text-zinc-500">Antonyms:</span>{" "}
-											{definition.antonyms.map((antonym) => (
-												<span className="text-violet-500" key={antonym}>
-													{antonym}
-												</span>
-											))}
-										</small>
+											<div className="flex gap-4 text-violet-500">
+												<WordListRow list={definition.antonyms} />
+											</div>
+										</div>
 									)}
 								</div>
 							</li>
 						))}
 					</ul>
-				</div>
+				</section>
 			))}
 		</div>
 	);
