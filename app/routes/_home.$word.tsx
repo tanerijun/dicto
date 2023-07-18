@@ -28,6 +28,9 @@ export const loader = async ({ params }: LoaderArgs) => {
 
 	const wordDefinition = cleanWordDefinitions(apiWordDefinitions.data);
 
+	// TODO: DELETE: simulate slow request
+	await new Promise((r) => setTimeout(r, 500));
+
 	// TODO: Caching
 	return json({ ...wordDefinition });
 };
