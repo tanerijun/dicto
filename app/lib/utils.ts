@@ -16,17 +16,18 @@ export function cleanWordDefinitions(
 			const phoneticInArrayIndex = cleanPhonetics.findIndex(
 				(p) => p.text === phonetic.text
 			);
+
 			if (phonetic.text && phoneticInArrayIndex === -1) {
-				// if (phonetic.text && !phoneticSet.has(phonetic.text)) {
 				const data: WordPhonetic = {
 					text: phonetic.text,
 					src: phonetic.audio,
 				};
-
-				// cleanData.phonetics.push(data);
 				cleanPhonetics.push(data);
-				// phoneticSet.add(phonetic.text);
-			} else if (!cleanPhonetics[phoneticInArrayIndex].src && phonetic.audio) {
+			} else if (
+				phonetic.text &&
+				phonetic.audio &&
+				!cleanPhonetics[phoneticInArrayIndex].src
+			) {
 				cleanPhonetics[phoneticInArrayIndex].src = phonetic.audio;
 			}
 		});
