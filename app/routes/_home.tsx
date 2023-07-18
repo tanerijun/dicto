@@ -5,9 +5,7 @@ import {
 	useNavigate,
 	useParams,
 } from "@remix-run/react";
-import { useEffect, useRef, useState } from "react";
 import { Header } from "~/components/Header";
-import { useDebounce } from "~/components/hooks/useDebounceValue";
 import { SearchIcon } from "~/components/icons/SearchIcon";
 
 export const meta: V2_MetaFunction = () => {
@@ -23,22 +21,10 @@ export const meta: V2_MetaFunction = () => {
 export default function HomeLayout() {
 	const params = useParams();
 	const navigate = useNavigate();
-	const [searchTerm, setSearchTerm] = useState(params.word || "");
-	const debouncedSearchTerm = useDebounce(searchTerm, 300);
-	const didMount = useRef(false);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchTerm(e.target.value);
+		navigate(`/${e.target.value}`);
 	};
-
-	useEffect(() => {
-		if (!didMount.current) {
-			didMount.current = true;
-			return;
-		}
-
-		navigate(`/${debouncedSearchTerm}`);
-	}, [debouncedSearchTerm, navigate]);
 
 	return (
 		<>
