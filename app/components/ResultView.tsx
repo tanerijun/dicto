@@ -76,22 +76,39 @@ const Header = ({
 	);
 };
 
-// TODO: on hold, need to clean data
-const Meanings = ({ meanings }: { meanings: Meanings }) => {
+const Meanings = ({ meanings }: { meanings: WordMeanings }) => {
 	return (
 		// TODO: can this be more semantic?
-		<div>
-			{meanings.map((meaning) => (
-				<div key={meaning.partOfSpeech}>
-					<p>Part of Speech: {meaning.partOfSpeech}</p>
-					<p>Definitions:</p>
-					<ul>
-						{meaning.definitions.map((definition) => (
-							<li key={definition.definition}>
+		<div className="flex flex-col gap-8">
+			{Object.keys(meanings).map((key) => (
+				<div key={key}>
+					<h3 className="after:content-[' '] flex items-center gap-6 text-xl after:block after:h-[1px] after:w-full after:bg-zinc-700">
+						{key}
+					</h3>
+
+					<p className="text-zinc-500">Meaning</p>
+
+					<ul className="flex flex-col gap-8">
+						{meanings[key].map((definition) => (
+							<li key={definition.definition} className="flex flex-col gap-2">
 								<p>{definition.definition}</p>
-								<p>Synonyms: {definition.synonyms}</p>
-								<p>Antonyms: {definition.antonyms}</p>
-								<p>Example: {definition.example}</p>
+								{definition.example && <p>Example: {definition.example}</p>}
+								{definition.synonyms && definition.synonyms.length > 0 && (
+									<p className="flex gap-4">
+										<span>Synonyms:</span>{" "}
+										{definition.synonyms.map((synonym) => (
+											<span key={synonym}>{synonym}</span>
+										))}
+									</p>
+								)}
+								{definition.antonyms && definition.antonyms.length > 0 && (
+									<p className="flex gap-4">
+										<span>Antonyms:</span>{" "}
+										{definition.antonyms.map((antonym) => (
+											<span key={antonym}>{antonym}</span>
+										))}
+									</p>
+								)}
 							</li>
 						))}
 					</ul>
@@ -107,9 +124,9 @@ export const ResultView = ({
 	definitions: WordDefinitions;
 }) => {
 	return (
-		<article>
+		<article className="flex flex-col gap-8">
 			<Header word={definitions.word} phonetics={definitions.phonetics} />
-			{/* <Meanings meanings={definitions.meanings} /> */}
+			<Meanings meanings={definitions.meanings} />
 		</article>
 	);
 };
