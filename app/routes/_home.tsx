@@ -1,10 +1,18 @@
-import { Outlet } from "@remix-run/react";
+import { Outlet, useNavigate, useParams } from "@remix-run/react";
 import { Header } from "~/components/Header";
 
 // TODO: create action, and redirect user to /${user_input} (for progressive enchancement)
 // TODO: make input controlled, and navigate to /${word} onChange (don't forget to debounce)
 
 export default function HomeLayout() {
+	const params = useParams();
+	const navigate = useNavigate();
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		// TODO: Debounce
+		navigate(`/${e.target.value}`);
+	};
+
 	return (
 		<>
 			<Header />
@@ -17,9 +25,10 @@ export default function HomeLayout() {
 						type="search"
 						name="query"
 						id="search-bar"
-						defaultValue={""} // TODO: get value from params
+						defaultValue={params.word}
 						placeholder="Try typing a word"
 						className="flex-1 border border-green-300 bg-transparent p-4"
+						onChange={handleInputChange}
 					/>
 					{/* TODO: Replace with icon */}
 					<button type="submit" className="px-4">

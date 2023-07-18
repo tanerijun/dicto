@@ -11,6 +11,10 @@ export const loader = async ({ params }: LoaderArgs) => {
 	}
 
 	const data = await getWordDefinitionsFromAPI(word);
+	if (!data) {
+		throw new Response("No definitions found", { status: 404 });
+	}
+
 	const apiWordDefinitions = APIWordDefinitionsSchema.safeParse(data);
 	if (!apiWordDefinitions.success) {
 		throw new Response("Error parsing data", { status: 500 });
