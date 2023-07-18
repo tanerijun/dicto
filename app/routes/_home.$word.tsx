@@ -42,7 +42,7 @@ export default function HomeWordPage() {
 	const navigation = useNavigation();
 	const isLoading = navigation.state !== "idle";
 
-	if (!isLoading) {
+	if (isLoading) {
 		return (
 			<div className="flex flex-1 items-center justify-center">
 				<LoadingIndicator />
@@ -53,19 +53,23 @@ export default function HomeWordPage() {
 	return <ResultView definitions={data} />;
 }
 
-// TODO: Styling
 export function ErrorBoundary() {
 	const params = useParams();
 	const error = useRouteError();
 
 	if (isRouteErrorResponse(error) && error.status === 404) {
-		return <div>No definition found for the word: "{params.word}"?</div>;
+		return (
+			<div className="text-center">
+				No definition found for the word: "
+				<span className="text-violet-500">{params.word}</span>".
+			</div>
+		);
 	}
 
 	return (
-		<div>
-			There was an error loading definition for the word: "{params.word}".
-			Sorry.
+		<div className="text-center">
+			There was an error loading definition for the word: "
+			<span className="text-violet-500">{params.word}</span>".
 		</div>
 	);
 }

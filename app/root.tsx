@@ -51,7 +51,6 @@ export default function App() {
 	);
 }
 
-// TODO: Make this theme aware
 export function ErrorBoundary() {
 	const error = useRouteError();
 	console.error(error);

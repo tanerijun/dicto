@@ -1,3 +1,5 @@
 export default function HomeIndexPage() {
-	return <div>Search for a word!</div>;
+	return (
+		<div className="flex items-center justify-center">Search for a word!</div>
+	);
 }

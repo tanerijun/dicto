@@ -44,7 +44,6 @@ export default function HomeLayout() {
 						className="flex-1 bg-transparent p-4 focus:outline-none"
 						onChange={handleInputChange}
 					/>
-					{/* TODO: Replace with icon */}
 					<button type="submit" className="px-4">
 						<SearchIcon />
 					</button>
