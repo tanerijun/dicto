@@ -29,7 +29,7 @@ export default function HomeLayout() {
 	return (
 		<>
 			<Header />
-			<main className="mx-auto my-8 flex max-w-3xl flex-col gap-12 px-4">
+			<main className="mx-auto my-8 flex w-full max-w-3xl flex-1 flex-col gap-12 px-4">
 				<Form
 					id="search-form"
 					className="flex rounded-lg bg-gray-200"
@@ -50,7 +50,11 @@ export default function HomeLayout() {
 					</button>
 				</Form>
 
-				<output htmlFor="search-bar" form="search-form">
+				<output
+					htmlFor="search-bar"
+					form="search-form"
+					className="flex flex-1 flex-col"
+				>
 					<Outlet />
 				</output>
 			</main>

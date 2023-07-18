@@ -31,7 +31,7 @@ const ThemeToggler = () => {
 
 export const Header = () => {
 	return (
-		<header className="mx-auto flex h-20 max-w-3xl items-center justify-between px-4">
+		<header className="mx-auto flex h-20 w-full max-w-3xl items-center justify-between px-4">
 			<Logo />
 			<div className="flex gap-4">
 				<FontStyleSelector />
