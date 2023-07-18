@@ -1,4 +1,4 @@
-import { type LoaderArgs } from "@remix-run/cloudflare";
+import { json, type LoaderArgs } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 import { getWordDefinitionsFromAPI } from "~/lib/api";
 import { APIWordDefinitionsSchema } from "~/lib/schema";
@@ -16,9 +16,10 @@ export const loader = async ({ params }: LoaderArgs) => {
 		throw new Response("Error parsing data", { status: 500 });
 	}
 
-	const wordDefinitions = cleanWordDefinitions(apiWordDefinitions.data);
+	const wordDefinition = cleanWordDefinitions(apiWordDefinitions.data);
 
-	return wordDefinitions;
+	// TODO: Caching
+	return json({ ...wordDefinition });
 };
 
 export default function HomeWordPage() {
