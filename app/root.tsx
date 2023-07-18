@@ -1,4 +1,8 @@
-import type { LinksFunction } from "@remix-run/cloudflare";
+import {
+	redirect,
+	type ActionArgs,
+	type LinksFunction,
+} from "@remix-run/cloudflare";
 import {
 	Links,
 	LiveReload,
@@ -12,6 +16,14 @@ import {
 import styles from "~/globals.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+
+export const action = async ({ request }: ActionArgs) => {
+	console.log("ACTIONONOONONON");
+	const body = await request.formData();
+	const word = body.get("query");
+
+	return redirect(`/${word}`);
+};
 
 export default function App() {
 	return (

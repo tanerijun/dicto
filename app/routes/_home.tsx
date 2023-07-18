@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, useParams } from "@remix-run/react";
+import { Form, Outlet, useNavigate, useParams } from "@remix-run/react";
 import { Header } from "~/components/Header";
 
 // TODO: create action, and redirect user to /${user_input} (for progressive enchancement)
@@ -17,9 +17,10 @@ export default function HomeLayout() {
 		<>
 			<Header />
 			<main className="mx-auto my-8 flex max-w-3xl flex-col gap-8 px-4">
-				<form
+				<Form
 					id="search-form"
 					className="flex rounded-lg border border-yellow-500 bg-gray-200"
+					method="post"
 				>
 					<input
 						type="search"
@@ -34,7 +35,7 @@ export default function HomeLayout() {
 					<button type="submit" className="px-4">
 						🔎
 					</button>
-				</form>
+				</Form>
 
 				<output htmlFor="search-bar" form="search-form">
 					<Outlet />
