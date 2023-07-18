@@ -5,6 +5,7 @@ import {
 	useNavigate,
 	useParams,
 } from "@remix-run/react";
+import { useEffect, useRef } from "react";
 import { Header } from "~/components/Header";
 import { SearchIcon } from "~/components/icons/SearchIcon";
 
@@ -21,10 +22,28 @@ export const meta: V2_MetaFunction = () => {
 export default function HomeLayout() {
 	const params = useParams();
 	const navigate = useNavigate();
+	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		navigate(`/${e.target.value}`);
 	};
+
+	const redirectToInput = (e: KeyboardEvent) => {
+		if (!inputRef.current || inputRef.current === document.activeElement) {
+			return;
+		}
+		if (e.code.match(/\w/g)) {
+			inputRef.current.focus();
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener("keydown", redirectToInput);
+
+		return () => {
+			window.removeEventListener("keydown", redirectToInput);
+		};
+	}, []);
 
 	return (
 		<>
@@ -36,6 +55,7 @@ export default function HomeLayout() {
 					method="post"
 				>
 					<input
+						ref={inputRef}
 						type="search"
 						name="query"
 						id="search-bar"
