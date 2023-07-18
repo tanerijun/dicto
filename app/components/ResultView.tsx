@@ -74,7 +74,9 @@ const Header = ({
 				<h1 className="text-5xl font-bold">{capitalize(word)}</h1>
 				<div className="flex">
 					{/* TODO: animate transition among different phonetics */}
-					<p className="text-violet-500">{currentPhonetic.text}</p>
+					{currentPhonetic && (
+						<p className="text-violet-500">{currentPhonetic.text}</p>
+					)}
 					{phonetics.length > 1 && (
 						<button className="border border-red-500 p-1" onClick={handleClick}>
 							{phoneticIndex}
@@ -83,7 +85,9 @@ const Header = ({
 				</div>
 			</div>
 			{/* TODO: animate mound and unmount */}
-			{currentPhonetic.src && <AudioPlayer src={currentPhonetic.src} />}
+			{currentPhonetic && currentPhonetic.src && (
+				<AudioPlayer src={currentPhonetic.src} />
+			)}
 		</header>
 	);
 };

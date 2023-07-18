@@ -18,7 +18,6 @@ import styles from "~/globals.css";
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export const action = async ({ request }: ActionArgs) => {
-	console.log("ACTIONONOONONON");
 	const body = await request.formData();
 	const word = body.get("query");
 
