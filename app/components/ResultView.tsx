@@ -42,7 +42,7 @@ const AudioPlayer = ({ src }: { src: string }) => {
 	return (
 		<button
 			onClick={handleClick}
-			className="flex h-16 w-16 items-center justify-center rounded-full bg-violet-500 text-white hover:bg-violet-400"
+			className="flex h-16 w-16 items-center justify-center rounded-full bg-violet-500 text-violet-100 transition-colors hover:bg-violet-400 hover:text-violet-600"
 		>
 			{isPlaying ? (
 				<VoiceIcon className="h-6 w-6" />
@@ -116,7 +116,7 @@ const Meanings = ({ meanings }: { meanings: WordMeanings }) => {
 		<div className="flex flex-col gap-12">
 			{Object.keys(meanings).map((key) => (
 				<section key={key} className="flex flex-col gap-8">
-					<h3 className="after:content-[' '] flex items-center gap-6 text-xl font-bold after:block after:h-[1px] after:w-full after:bg-zinc-700">
+					<h3 className="after:content-[' '] flex items-center gap-6 text-xl font-bold after:block after:h-[1px] after:w-full after:bg-zinc-400 dark:after:bg-zinc-600">
 						{key}
 					</h3>
 
@@ -129,13 +129,15 @@ const Meanings = ({ meanings }: { meanings: WordMeanings }) => {
 								<div className="flex flex-col gap-4">
 									<p>{definition.definition}</p>
 									{definition.example && (
-										<p className="ml-8 text-sm italic text-zinc-500">
+										<p className="ml-8 text-sm italic text-zinc-600 dark:text-zinc-400">
 											"{definition.example}"
 										</p>
 									)}
 									{definition.synonyms && definition.synonyms.length > 0 && (
 										<div className="flex gap-4 text-xs">
-											<span className="text-zinc-500">Synonyms:</span>{" "}
+											<span className="text-zinc-600 dark:text-zinc-400">
+												Synonyms:
+											</span>{" "}
 											<div className="flex gap-4 text-violet-500">
 												<WordListRow list={definition.synonyms} />
 											</div>
@@ -143,7 +145,9 @@ const Meanings = ({ meanings }: { meanings: WordMeanings }) => {
 									)}
 									{definition.antonyms && definition.antonyms.length > 0 && (
 										<div className="flex gap-4 text-xs">
-											<span className="text-zinc-500">Antonyms:</span>{" "}
+											<span className="text-zinc-600 dark:text-zinc-400">
+												Antonyms:
+											</span>{" "}
 											<div className="flex gap-4 text-violet-500">
 												<WordListRow list={definition.antonyms} />
 											</div>
