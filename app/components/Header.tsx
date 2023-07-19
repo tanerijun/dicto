@@ -58,7 +58,12 @@ const FontStyleSelector = () => {
 };
 
 const ThemeToggler = () => {
-	const { theme, toggleTheme } = useTheme();
+	const [theme, setTheme] = useTheme();
+
+	function toggleTheme() {
+		const nextTheme = theme === "light" ? "dark" : "light";
+		setTheme(nextTheme);
+	}
 
 	return (
 		<button onClick={toggleTheme}>

@@ -27,7 +27,7 @@ export const action = async ({ request }: ActionArgs) => {
 };
 
 const Document = ({ children }: { children: React.ReactNode }) => {
-	const { theme } = useTheme();
+	const [theme] = useTheme();
 	const [fontStyle] = useFontStyle();
 
 	return (

@@ -2,22 +2,16 @@ import { createContext, useContext, useState } from "react";
 
 type Theme = "light" | "dark";
 
-export const ThemeContext = createContext<{
-	theme: Theme;
-	toggleTheme: () => void;
-} | null>(null);
+export const ThemeContext = createContext<
+	[Theme, React.Dispatch<React.SetStateAction<Theme>>] | null
+>(null);
 
 // TODO: persist theme
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	const [theme, setTheme] = useState<Theme>("light");
 
-	function toggleTheme() {
-		const nextTheme = theme === "light" ? "dark" : "light";
-		setTheme(nextTheme);
-	}
-
 	return (
-		<ThemeContext.Provider value={{ theme, toggleTheme }}>
+		<ThemeContext.Provider value={[theme, setTheme]}>
 			{children}
 		</ThemeContext.Provider>
 	);
