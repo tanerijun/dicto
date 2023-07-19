@@ -1,6 +1,7 @@
 import { SunIcon } from "./icons/SunIcon";
 import { MoonIcon } from "./icons/MoonIcon";
 import { useTheme } from "~/contexts/theme";
+import { memo } from "react";
 
 const Logo = () => {
 	return <div className="bold text-3xl">Dicto</div>;
@@ -28,7 +29,7 @@ const ThemeToggler = () => {
 	);
 };
 
-export const Header = () => {
+export const Header = memo(() => {
 	return (
 		<header className="mx-auto flex h-20 w-full max-w-3xl items-center justify-between px-4">
 			<Logo />
@@ -38,4 +39,5 @@ export const Header = () => {
 			</div>
 		</header>
 	);
-};
+});
+Header.displayName = "Header";
