@@ -3,6 +3,8 @@ import { SunIcon } from "./icons/SunIcon";
 import { MoonIcon } from "./icons/MoonIcon";
 import { useTheme } from "~/contexts/theme";
 import { memo } from "react";
+import { useFontStyle } from "~/contexts/fontStyle";
+import { capitalize } from "~/lib/utils";
 
 const Logo = () => {
 	return <div className="bold text-3xl">Dicto</div>;
@@ -12,11 +14,14 @@ const FontStyleSelector = () => {
 	// TODO: make button show a dropdown menu with font styles
 	// should probably contain a <select>
 	// and mutate a context on selection
+	const [fontStyle, setFontStyle] = useFontStyle();
 
 	return (
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger asChild>
-				<button>Current Font</button>
+				<button className="padding focus:outline-violet-500">
+					{capitalize(fontStyle)}
+				</button>
 			</DropdownMenu.Trigger>
 
 			<DropdownMenu.Portal>
@@ -27,13 +32,22 @@ const FontStyleSelector = () => {
 					<DropdownMenu.Label className="select-none p-2 text-sm text-zinc-400">
 						Font Style
 					</DropdownMenu.Label>
-					<DropdownMenu.Item className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200">
+					<DropdownMenu.Item
+						className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200"
+						onClick={() => setFontStyle("sans")}
+					>
 						Sans
 					</DropdownMenu.Item>
-					<DropdownMenu.Item className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200">
+					<DropdownMenu.Item
+						className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200"
+						onClick={() => setFontStyle("serif")}
+					>
 						Sans Serif
 					</DropdownMenu.Item>
-					<DropdownMenu.Item className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200">
+					<DropdownMenu.Item
+						className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200"
+						onClick={() => setFontStyle("mono")}
+					>
 						Mono
 					</DropdownMenu.Item>
 				</DropdownMenu.Content>

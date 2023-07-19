@@ -15,6 +15,7 @@ import {
 } from "@remix-run/react";
 import styles from "~/globals.css";
 import { ThemeProvider, useTheme } from "./contexts/theme";
+import { FontStyleProvider } from "./contexts/fontStyle";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -49,9 +50,11 @@ const Document = ({ children }: { children: React.ReactNode }) => {
 export default function App() {
 	return (
 		<ThemeProvider>
-			<Document>
-				<Outlet />
-			</Document>
+			<FontStyleProvider>
+				<Document>
+					<Outlet />
+				</Document>
+			</FontStyleProvider>
 		</ThemeProvider>
 	);
 }

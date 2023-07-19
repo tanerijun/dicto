@@ -28,7 +28,7 @@ export function useTheme() {
 
 	if (!context) {
 		throw new Error(
-			"could not find ThemeContext, please ensure the component is wrapped in a <ThemeProvider>"
+			"Could not find ThemeContext, please ensure the component is wrapped in a <ThemeProvider>"
 		);
 	}
 
