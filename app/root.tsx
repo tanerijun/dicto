@@ -17,7 +17,22 @@ import styles from "~/globals.css";
 import { ThemeProvider, useTheme } from "./contexts/theme";
 import { FontStyleProvider, useFontStyle } from "./contexts/fontStyle";
 
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+export const links: LinksFunction = () => [
+	{ rel: "stylesheet", href: styles },
+	{
+		rel: "preconnect",
+		href: "https://fonts.googleapis.com",
+	},
+	{
+		rel: "preconnect",
+		href: "https://fonts.gstatic.com",
+		crossOrigin: "anonymous",
+	},
+	{
+		rel: "stylesheet",
+		href: "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto+Serif:wght@400;700&family=Roboto:wght@400;700&display=swap",
+	},
+];
 
 export const action = async ({ request }: ActionArgs) => {
 	const body = await request.formData();

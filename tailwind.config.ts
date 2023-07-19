@@ -1,10 +1,16 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 export default {
 	content: ["./app/**/*.{js,jsx,ts,tsx}"],
 	darkMode: "class",
 	theme: {
 		extend: {
+			fontFamily: {
+				sans: ["Roboto", ...defaultTheme.fontFamily.sans],
+				serif: ["Roboto Serif", ...defaultTheme.fontFamily.serif],
+				mono: ["Roboto Mono", ...defaultTheme.fontFamily.mono],
+			},
 			keyframes: {
 				"loading-scale": {
 					"0%, 90%, 100%": { transform: "scale(0)" },
