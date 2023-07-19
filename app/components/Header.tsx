@@ -12,9 +12,6 @@ const Logo = () => {
 };
 
 const FontStyleSelector = () => {
-	// TODO: make button show a dropdown menu with font styles
-	// should probably contain a <select>
-	// and mutate a context on selection
 	const [fontStyle, setFontStyle] = useFontStyle();
 
 	return (
@@ -37,19 +34,19 @@ const FontStyleSelector = () => {
 						Font Style
 					</DropdownMenu.Label>
 					<DropdownMenu.Item
-						className="cursor-pointer rounded-lg px-4 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-900"
+						className="cursor-pointer rounded-lg px-4 py-2 font-sans hover:bg-zinc-200 dark:hover:bg-zinc-900"
 						onClick={() => setFontStyle("sans")}
 					>
 						Sans
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
-						className="cursor-pointer rounded-lg px-4 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-900"
+						className="cursor-pointer rounded-lg px-4 py-2 font-serif hover:bg-zinc-200 dark:hover:bg-zinc-900"
 						onClick={() => setFontStyle("serif")}
 					>
 						Sans Serif
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
-						className="cursor-pointer rounded-lg px-4 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-900"
+						className="cursor-pointer rounded-lg px-4 py-2 font-mono hover:bg-zinc-200 dark:hover:bg-zinc-900"
 						onClick={() => setFontStyle("mono")}
 					>
 						Mono

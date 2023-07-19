@@ -15,7 +15,7 @@ import {
 } from "@remix-run/react";
 import styles from "~/globals.css";
 import { ThemeProvider, useTheme } from "./contexts/theme";
-import { FontStyleProvider } from "./contexts/fontStyle";
+import { FontStyleProvider, useFontStyle } from "./contexts/fontStyle";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -28,9 +28,10 @@ export const action = async ({ request }: ActionArgs) => {
 
 const Document = ({ children }: { children: React.ReactNode }) => {
 	const { theme } = useTheme();
+	const [fontStyle] = useFontStyle();
 
 	return (
-		<html lang="en" className={`${theme}`}>
+		<html lang="en" className={`${theme} font-${fontStyle}`}>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width,initial-scale=1" />
