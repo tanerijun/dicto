@@ -6,9 +6,17 @@ import { useTheme } from "~/contexts/theme";
 import { memo } from "react";
 import { useFontStyle } from "~/contexts/fontStyle";
 import { capitalize } from "~/lib/utils";
+import { Link } from "@remix-run/react";
 
 const Logo = () => {
-	return <div className="bold text-3xl">Dicto</div>;
+	return (
+		<Link
+			to="/"
+			className="select-none text-3xl font-bold transition-colors hover:text-violet-500"
+		>
+			Dicto
+		</Link>
+	);
 };
 
 const FontStyleSelector = () => {
