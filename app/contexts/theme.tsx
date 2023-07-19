@@ -7,6 +7,7 @@ export const ThemeContext = createContext<{
 	toggleTheme: () => void;
 } | null>(null);
 
+// TODO: persist theme
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	const [theme, setTheme] = useState<Theme>("light");
 

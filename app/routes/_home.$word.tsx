@@ -2,11 +2,9 @@ import { json, type LoaderArgs } from "@remix-run/cloudflare";
 import {
 	isRouteErrorResponse,
 	useLoaderData,
-	useNavigation,
 	useParams,
 	useRouteError,
 } from "@remix-run/react";
-import { LoadingIndicator } from "~/components/LoadingIndicator";
 import { ResultView } from "~/components/ResultView";
 import { getWordDefinitionsFromAPI } from "~/lib/api";
 import { APIWordDefinitionsSchema } from "~/lib/schema";
@@ -39,16 +37,6 @@ export const loader = async ({ params }: LoaderArgs) => {
 
 export default function HomeWordPage() {
 	const data = useLoaderData<typeof loader>();
-	const navigation = useNavigation();
-	const isLoading = navigation.state !== "idle";
-
-	if (isLoading) {
-		return (
-			<div className="flex flex-1 items-center justify-center">
-				<LoadingIndicator />
-			</div>
-		);
-	}
 
 	return <ResultView definitions={data} />;
 }
