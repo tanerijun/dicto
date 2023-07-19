@@ -1,6 +1,7 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { SunIcon } from "./icons/SunIcon";
 import { MoonIcon } from "./icons/MoonIcon";
+import { DownArrowIcon } from "./icons/DownArrowIcon";
 import { useTheme } from "~/contexts/theme";
 import { memo } from "react";
 import { useFontStyle } from "~/contexts/fontStyle";
@@ -19,13 +20,18 @@ const FontStyleSelector = () => {
 	return (
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger asChild>
-				<button className="p-4">{capitalize(fontStyle)}</button>
+				<button className="group py-2 pl-4 pr-2">
+					<div className="flex items-center justify-center gap-1">
+						<span>{capitalize(fontStyle)}</span>
+						<DownArrowIcon className="h-6 w-6 group-hover:text-violet-500 group-focus:text-violet-500" />
+					</div>
+				</button>
 			</DropdownMenu.Trigger>
 
 			<DropdownMenu.Portal>
 				<DropdownMenu.Content
 					className="flex w-36 flex-col gap-2 rounded-lg border bg-white p-2 drop-shadow-md dark:bg-zinc-800"
-					sideOffset={10}
+					sideOffset={5}
 				>
 					<DropdownMenu.Label className="select-none px-4 py-2 text-sm text-zinc-400 dark:text-zinc-600">
 						Font Style
@@ -72,7 +78,7 @@ export const Header = memo(() => {
 	return (
 		<header className="mx-auto flex h-20 w-full max-w-3xl items-center justify-between px-4">
 			<Logo />
-			<div className="flex gap-4">
+			<div className="flex gap-6">
 				<FontStyleSelector />
 				<ThemeToggler />
 			</div>
