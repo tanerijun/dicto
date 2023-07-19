@@ -42,7 +42,7 @@ const AudioPlayer = ({ src }: { src: string }) => {
 	return (
 		<button
 			onClick={handleClick}
-			className="flex h-16 w-16 items-center justify-center rounded-full bg-violet-500 text-violet-100 transition-colors hover:bg-violet-400 hover:text-violet-600"
+			className="flex h-16 w-16 items-center justify-center rounded-full bg-violet-500 text-violet-200 transition-colors hover:bg-violet-300 hover:text-violet-600 dark:bg-violet-600 dark:hover:bg-violet-400 dark:hover:text-violet-700"
 		>
 			{isPlaying ? (
 				<VoiceIcon className="h-6 w-6" />
