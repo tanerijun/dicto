@@ -1,3 +1,4 @@
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { SunIcon } from "./icons/SunIcon";
 import { MoonIcon } from "./icons/MoonIcon";
 import { useTheme } from "~/contexts/theme";
@@ -12,7 +13,33 @@ const FontStyleSelector = () => {
 	// should probably contain a <select>
 	// and mutate a context on selection
 
-	return <button>Sans</button>;
+	return (
+		<DropdownMenu.Root>
+			<DropdownMenu.Trigger asChild>
+				<button>Current Font</button>
+			</DropdownMenu.Trigger>
+
+			<DropdownMenu.Portal>
+				<DropdownMenu.Content
+					className="flex w-36 flex-col gap-2 rounded-lg border bg-white p-2 drop-shadow-md"
+					sideOffset={10}
+				>
+					<DropdownMenu.Label className="select-none p-2 text-sm text-zinc-400">
+						Font Style
+					</DropdownMenu.Label>
+					<DropdownMenu.Item className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200">
+						Sans
+					</DropdownMenu.Item>
+					<DropdownMenu.Item className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200">
+						Sans Serif
+					</DropdownMenu.Item>
+					<DropdownMenu.Item className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200">
+						Mono
+					</DropdownMenu.Item>
+				</DropdownMenu.Content>
+			</DropdownMenu.Portal>
+		</DropdownMenu.Root>
+	);
 };
 
 const ThemeToggler = () => {
