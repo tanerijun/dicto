@@ -15,7 +15,7 @@ export default {
 					"50%": { transform: "rotate(3deg)" },
 				},
 				"icon-rotate": {
-					"0, 100%": { transform: "rotate(0deg)" },
+					"0%, 100%": { transform: "rotate(0deg)" },
 					"50%": { transform: "rotate(40deg)" },
 				},
 			},
