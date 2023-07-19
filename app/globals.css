@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+	* {
+		@apply focus:outline-violet-500;
+	}
+}
+
 /* clears the 'X' in searchbar from Internet Explorer */
 input[type="search"]::-ms-clear {
 	display: none;

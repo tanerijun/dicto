@@ -60,12 +60,13 @@ const SearchForm = () => {
 				id="search-bar"
 				defaultValue={params.word}
 				placeholder="Try typing a word"
+				autoComplete="off"
 				className="flex-1 rounded-lg border-2 border-transparent bg-transparent py-5 pl-5 pr-14 focus:border-violet-500 focus:outline-none"
 				onChange={handleInputChange}
 			/>
 			<button
 				type="submit"
-				className="absolute right-0 top-1/2 -translate-y-1/2 px-4"
+				className="absolute right-0 top-1/2 -translate-y-1/2 p-4"
 			>
 				<SearchIcon className="h-6 w-6 transition-colors hover:text-violet-500" />
 			</button>

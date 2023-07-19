@@ -19,33 +19,31 @@ const FontStyleSelector = () => {
 	return (
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger asChild>
-				<button className="padding focus:outline-violet-500">
-					{capitalize(fontStyle)}
-				</button>
+				<button className="p-4">{capitalize(fontStyle)}</button>
 			</DropdownMenu.Trigger>
 
 			<DropdownMenu.Portal>
 				<DropdownMenu.Content
-					className="flex w-36 flex-col gap-2 rounded-lg border bg-white p-2 drop-shadow-md"
+					className="flex w-36 flex-col gap-2 rounded-lg border bg-white p-2 drop-shadow-md dark:bg-zinc-800"
 					sideOffset={10}
 				>
-					<DropdownMenu.Label className="select-none p-2 text-sm text-zinc-400">
+					<DropdownMenu.Label className="select-none px-4 py-2 text-sm text-zinc-400 dark:text-zinc-600">
 						Font Style
 					</DropdownMenu.Label>
 					<DropdownMenu.Item
-						className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200"
+						className="cursor-pointer rounded-lg px-4 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-900"
 						onClick={() => setFontStyle("sans")}
 					>
 						Sans
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
-						className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200"
+						className="cursor-pointer rounded-lg px-4 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-900"
 						onClick={() => setFontStyle("serif")}
 					>
 						Sans Serif
 					</DropdownMenu.Item>
 					<DropdownMenu.Item
-						className="cursor-pointer rounded-lg p-2 hover:bg-zinc-200"
+						className="cursor-pointer rounded-lg px-4 py-2 hover:bg-zinc-200 dark:hover:bg-zinc-900"
 						onClick={() => setFontStyle("mono")}
 					>
 						Mono
