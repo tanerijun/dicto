@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { SunIcon } from "./icons/SunIcon";
 import { MoonIcon } from "./icons/MoonIcon";
+import { useTheme } from "~/contexts/theme";
 
 const Logo = () => {
 	return <div className="bold text-3xl">Dicto</div>;
@@ -15,15 +15,10 @@ const FontStyleSelector = () => {
 };
 
 const ThemeToggler = () => {
-	// TODO: read and mutate theme context
-	const [theme, setTheme] = useState<"light" | "dark">("light");
-
-	const handleClick = () => {
-		setTheme(theme === "light" ? "dark" : "light");
-	};
+	const { theme, toggleTheme } = useTheme();
 
 	return (
-		<button onClick={handleClick}>
+		<button onClick={toggleTheme}>
 			{theme === "light" ? <SunIcon /> : <MoonIcon />}
 		</button>
 	);
