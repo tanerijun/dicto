@@ -19,7 +19,11 @@ const ThemeToggler = () => {
 
 	return (
 		<button onClick={toggleTheme}>
-			{theme === "light" ? <SunIcon /> : <MoonIcon />}
+			{theme === "light" ? (
+				<SunIcon className="h-6 w-6 animate-icon-rotate hover:animate-wiggle" />
+			) : (
+				<MoonIcon className="h-6 w-6 animate-icon-rotate hover:animate-wiggle" />
+			)}
 		</button>
 	);
 };
