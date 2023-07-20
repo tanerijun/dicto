@@ -1,6 +1,6 @@
 # Dicto
 
-Dependable little dictionary.
+Super fast and dependable dictionary app. Hosted on the edge via Cloudflare.
 
 ## Tech Stack
 
