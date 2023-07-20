@@ -14,8 +14,13 @@ import {
 	useRouteError,
 } from "@remix-run/react";
 import styles from "~/globals.css";
-import { ThemeProvider, useTheme } from "./contexts/theme";
+import {
+	NonFlashOfWrongThemeEls,
+	ThemeProvider,
+	useTheme,
+} from "./contexts/theme";
 import { FontStyleProvider, useFontStyle } from "./contexts/fontStyle";
+import clsx from "clsx";
 
 export const links: LinksFunction = () => [
 	{ rel: "stylesheet", href: styles },
@@ -46,12 +51,13 @@ const Document = ({ children }: { children: React.ReactNode }) => {
 	const [fontStyle] = useFontStyle();
 
 	return (
-		<html lang="en" className={`${theme} font-${fontStyle}`}>
+		<html lang="en" className={clsx(`font-${fontStyle}`, theme)}>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width,initial-scale=1" />
 				<Meta />
 				<Links />
+				<NonFlashOfWrongThemeEls />
 			</head>
 			<body className="flex min-h-screen flex-col bg-white dark:bg-zinc-900 dark:text-zinc-200">
 				{children}

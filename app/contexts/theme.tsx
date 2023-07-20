@@ -3,12 +3,46 @@ import { createContext, useContext, useState } from "react";
 type Theme = "light" | "dark";
 
 export const ThemeContext = createContext<
-	[Theme, React.Dispatch<React.SetStateAction<Theme>>] | null
+	[Theme | null, React.Dispatch<React.SetStateAction<Theme | null>>] | null
 >(null);
 
-// TODO: persist theme
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-	const [theme, setTheme] = useState<Theme>("light");
+const prefersDarkMQ = "(prefers-color-scheme: dark)";
+const getPreferredTheme = () =>
+	window.matchMedia(prefersDarkMQ).matches ? "dark" : "light";
+
+const clientThemeCode = `
+;(() => {
+	const theme = window.matchMedia(${JSON.stringify(prefersDarkMQ)}).matches
+		? 'dark'
+		: 'light';
+	const cl = document.documentElement.classList;
+	const themeAlreadyApplied = cl.contains('light') || cl.contains('dark');
+	if (!themeAlreadyApplied) {
+		cl.add(theme);
+	}
+})();
+`;
+
+export function NonFlashOfWrongThemeEls() {
+	return <script dangerouslySetInnerHTML={{ __html: clientThemeCode }} />;
+}
+
+export function ThemeProvider({
+	children,
+	initialTheme,
+}: {
+	children: React.ReactNode;
+	initialTheme?: Theme;
+}) {
+	const [theme, setTheme] = useState<Theme | null>(() => {
+		if (initialTheme) return initialTheme;
+
+		if (typeof window === "undefined") {
+			return null;
+		}
+
+		return getPreferredTheme();
+	});
 
 	return (
 		<ThemeContext.Provider value={[theme, setTheme]}>
