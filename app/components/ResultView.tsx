@@ -1,5 +1,6 @@
 import { Link } from "@remix-run/react";
 import { Fragment, useEffect, useRef, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import {
 	type WordMeanings,
 	type WordPhonetic,
@@ -60,6 +61,9 @@ const Header = ({
 	word: string;
 	phonetics: WordPhonetic[];
 }) => {
+	const [phoneticTextParentAnimationRef] = useAutoAnimate();
+	const [phoneticSoundParentAnimationRef] = useAutoAnimate();
+
 	const [phoneticIndex, setPhoneticIndex] = useState(0);
 	const currentPhonetic = phonetics[phoneticIndex];
 
@@ -70,13 +74,21 @@ const Header = ({
 	};
 
 	return (
-		<header className="flex justify-between">
+		<header
+			ref={phoneticSoundParentAnimationRef}
+			className="flex justify-between"
+		>
 			<div className="flex flex-col gap-2">
 				<h1 className="text-5xl font-bold">{capitalize(word)}</h1>
-				<div className="flex justify-between">
-					{/* TODO: animate transition among different phonetics */}
+
+				<div
+					ref={phoneticTextParentAnimationRef}
+					className="flex justify-between"
+				>
 					{currentPhonetic && (
-						<p className="text-violet-500">{currentPhonetic.text}</p>
+						<p key={currentPhonetic.text} className="text-violet-500">
+							{currentPhonetic.text}
+						</p>
 					)}
 					{phonetics.length > 1 && (
 						<button className="group" onClick={handleClick}>
@@ -85,7 +97,7 @@ const Header = ({
 					)}
 				</div>
 			</div>
-			{/* TODO: animate mound and unmount */}
+
 			{currentPhonetic && currentPhonetic.src && (
 				<AudioPlayer src={currentPhonetic.src} />
 			)}
