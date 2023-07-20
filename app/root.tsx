@@ -16,15 +16,15 @@ import {
 	useLoaderData,
 	useRouteError,
 } from "@remix-run/react";
-import styles from "~/globals.css";
 import {
 	NonFlashOfWrongThemeEls,
 	ThemeProvider,
 	useTheme,
 } from "./contexts/theme";
-import { FontStyleProvider, useFontStyle } from "./contexts/fontStyle";
+import { FontStyleProvider, useFontStyle } from "~/contexts/fontStyle";
+import { getSession } from "~/lib/session.server";
 import clsx from "clsx";
-import { getSession } from "./lib/session.server";
+import styles from "~/globals.css";
 
 export const links: LinksFunction = () => [
 	{ rel: "stylesheet", href: styles },

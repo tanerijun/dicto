@@ -9,7 +9,6 @@ import * as build from "@remix-run/dev/server-build";
 interface Env {
 	// Environment variables (Cloudflare globals)
 	SESSION_SECRET: string;
-	DB: D1Database;
 
 	// Utilities
 	sessionStorage: SessionStorage;
