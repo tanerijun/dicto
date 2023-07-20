@@ -1,0 +1,2 @@
+# Create a .dev.vars file with this content
+SESSION_SECRET=SECRET_KEY

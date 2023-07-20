@@ -1,7 +1,9 @@
 import {
 	redirect,
 	type ActionArgs,
+	type LoaderArgs,
 	type LinksFunction,
+	json,
 } from "@remix-run/cloudflare";
 import {
 	Links,
@@ -11,6 +13,7 @@ import {
 	Scripts,
 	ScrollRestoration,
 	isRouteErrorResponse,
+	useLoaderData,
 	useRouteError,
 } from "@remix-run/react";
 import styles from "~/globals.css";
@@ -21,6 +24,7 @@ import {
 } from "./contexts/theme";
 import { FontStyleProvider, useFontStyle } from "./contexts/fontStyle";
 import clsx from "clsx";
+import { getSession } from "./lib/session.server";
 
 export const links: LinksFunction = () => [
 	{ rel: "stylesheet", href: styles },
@@ -38,6 +42,17 @@ export const links: LinksFunction = () => [
 		href: "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto+Serif:wght@400;700&family=Roboto:wght@400;700&display=swap",
 	},
 ];
+
+export const loader = async ({ request, context }: LoaderArgs) => {
+	const sessionStorage = context.sessionStorage;
+	const session = await getSession(request, sessionStorage);
+
+	const theme = session.getTheme();
+
+	return json({
+		theme,
+	});
+};
 
 export const action = async ({ request }: ActionArgs) => {
 	const body = await request.formData();
@@ -57,7 +72,7 @@ const Document = ({ children }: { children: React.ReactNode }) => {
 				<meta name="viewport" content="width=device-width,initial-scale=1" />
 				<Meta />
 				<Links />
-				<NonFlashOfWrongThemeEls />
+				<NonFlashOfWrongThemeEls ssrTheme={Boolean(theme)} />
 			</head>
 			<body className="flex min-h-screen flex-col bg-white dark:bg-zinc-900 dark:text-zinc-200">
 				{children}
@@ -70,8 +85,10 @@ const Document = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default function App() {
+	const { theme } = useLoaderData<typeof loader>();
+
 	return (
-		<ThemeProvider>
+		<ThemeProvider initialTheme={theme}>
 			<FontStyleProvider>
 				<Document>
 					<Outlet />
