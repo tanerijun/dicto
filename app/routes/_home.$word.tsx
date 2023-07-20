@@ -18,7 +18,12 @@ export const loader = async ({ params }: LoaderArgs) => {
 
 	const data = await getWordDefinitionsFromAPI(word);
 	if (!data) {
-		throw new Response("No definitions found", { status: 404 });
+		throw new Response("No definitions found", {
+			status: 404,
+			headers: {
+				"Cache-Control": `max-age=${60 * 60 * 24 * 365}`,
+			},
+		});
 	}
 
 	const apiWordDefinitions = APIWordDefinitionsSchema.safeParse(data);
@@ -28,11 +33,14 @@ export const loader = async ({ params }: LoaderArgs) => {
 
 	const wordDefinition = cleanWordDefinitions(apiWordDefinitions.data);
 
-	// TODO: DELETE: simulate slow request
-	await new Promise((r) => setTimeout(r, 1000));
-
-	// TODO: Caching
-	return json({ ...wordDefinition });
+	return json(
+		{ ...wordDefinition },
+		{
+			headers: {
+				"Cache-Control": `max-age=${60 * 60 * 24 * 365}`,
+			},
+		}
+	);
 };
 
 export default function HomeWordPage() {
