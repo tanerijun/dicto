@@ -48,9 +48,11 @@ export const loader = async ({ request, context }: LoaderArgs) => {
 	const session = await getSession(request, sessionStorage);
 
 	const theme = session.getTheme();
+	const fontStyle = session.getFontStyle();
 
 	return json({
 		theme,
+		fontStyle,
 	});
 };
 
@@ -85,11 +87,11 @@ const Document = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default function App() {
-	const { theme } = useLoaderData<typeof loader>();
+	const { theme, fontStyle } = useLoaderData<typeof loader>();
 
 	return (
 		<ThemeProvider initialTheme={theme}>
-			<FontStyleProvider>
+			<FontStyleProvider initialFontStyle={fontStyle}>
 				<Document>
 					<Outlet />
 				</Document>
