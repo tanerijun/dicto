@@ -74,7 +74,7 @@ const ThemeToggler = () => {
 	}
 
 	return (
-		<button onClick={toggleTheme}>
+		<button onClick={toggleTheme} aria-label="toggle-theme">
 			{theme === "light" ? (
 				<SunIcon className="h-6 w-6 animate-icon-rotate hover:animate-wiggle" />
 			) : (

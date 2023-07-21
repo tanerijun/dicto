@@ -67,6 +67,7 @@ const SearchForm = () => {
 			<button
 				type="submit"
 				className="absolute right-0 top-1/2 -translate-y-1/2 p-4"
+				aria-label="search"
 			>
 				<SearchIcon className="h-6 w-6 transition-colors hover:text-violet-500" />
 			</button>
