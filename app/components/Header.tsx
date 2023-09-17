@@ -7,6 +7,7 @@ import { memo } from "react";
 import { useFontStyle } from "~/contexts/fontStyle";
 import { capitalize } from "~/lib/utils";
 import { Link } from "@remix-run/react";
+import { GithubIcon } from "./icons/GithubIcon";
 
 const Logo = () => {
 	return (
@@ -88,9 +89,12 @@ export const Header = memo(() => {
 	return (
 		<header className="mx-auto flex h-20 w-full max-w-3xl items-center justify-between px-4">
 			<Logo />
-			<div className="flex gap-6">
+			<div className="flex items-center gap-6">
 				<FontStyleSelector />
 				<ThemeToggler />
+				<Link to="https://github.com/tanerijun/dicto" target="_blank">
+					<GithubIcon className="h-6 w-6 animate-icon-rotate hover:animate-wiggle" />
+				</Link>
 			</div>
 		</header>
 	);
